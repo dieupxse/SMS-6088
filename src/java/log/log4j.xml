@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="CA" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Appender log Debug. Tạo file mói mỗi ngày theo định dạng debug.log.yyyy-MM-dd -->
+	<appender name="FileDebug" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="DEBUG" />
+		<param name="DatePattern" value=".yyyy-MM-dd" />
+		<param name="File" value="E:\\debug.log" /> <!-- Xác định đường dẫn lưu file -->
+
+		<!-- Tạo layout cho appender có định dạng: yyyy-MM-dd HH:mm:ss [DEBUG] 
+			... -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
+		</layout>
+
+		<!-- Tạo filter cho appender -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<!-- Appender log Info. Tạo file mói mỗi ngày theo định dạng info.log.yyyy-MM-dd -->
+	<appender name="FileInfo" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="DatePattern" value=".yyyy-MM-dd" />
+		<param name="File" value="E:\\info.log" /> <!-- Xác định đường dẫn lưu file -->
+
+		<!-- Tạo layout cho appender có định dạng: yyyy-MM-dd HH:mm:ss [INFO] ... -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
+		</layout>
+
+		<!-- Tạo filter cho appender -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="INFO" />
+			<param name="LevelMax" value="INFO" />
+		</filter>
+	</appender>
+
+	<!-- Appender log Error. Tạo file mói mỗi ngày theo định dạng error.log.yyyy-MM-dd -->
+	<appender name="FileError" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="WARN" />
+		<param name="DatePattern" value=".yyyy-MM-dd" />
+		<param name="File" value="E:\\error.log" />
+
+		<!-- Tạo layout cho appender có định dạng: yyyy-MM-dd HH:mm:ss [ERROR] 
+			... -->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
+		</layout>
+
+		<!-- Tạo filter cho appender -->
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="WARN" />
+			<param name="LevelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<!-- Tất cả các thông tin dưới đây không được xóa, chỉ được chỉnh sửa theo 
+		hướng dẫn trong comment -->
+	<root>
+		<level value="DEBUG" /> <!-- Xác định level cho rootLogger -->
+
+		<!-- Xuất tất cả thông tin ra ngoài console, chỉ dùng trong giai đoạn coding. 
+			Comment khi chuyển giao cho khách hàng -->
+		<appender-ref ref="CA" />
+
+		<!-- Xuất các thông tin level DEBUG, INFO, WARN, ERROR, FATAL ra file debug.log. 
+			Khi chuyển giao cho khách hàng, comment lại. Nếu phát hiện lỗi, bỏ comment 
+			để ghi lại toàn bộ hoạt động của hệ thống -->
+		<!-- <appender-ref ref="FileDebug" /> -->
+
+		<!-- Xuất các thông tin level INFO ra file info.log -->
+		<appender-ref ref="FileInfo" />
+
+		<!-- Xuất các thông tin level ERROR, WARN, FATAL ra file error.log -->
+		<appender-ref ref="FileError" />
+	</root>
+</log4j:configuration>
